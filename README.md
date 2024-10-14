@@ -1,3 +1,11 @@
+# `re_rav1d`
+`re_rav1d` is a fork of https://github.com/memorysafety/rav1d
+
+You can see how it differs from upstream in <https://github.com/rerun-io/rav1d/pull/2>.
+
+We publish off the `re_rav1d` branch, which is tracked in the above PR.
+
+
 # rav1d
 
 **rav1d** is an AV1 cross-platform decoder, open-source, and focused on speed
