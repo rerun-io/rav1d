@@ -5,13 +5,13 @@ default-members = [".", "tools"]
 [package]
 name = "re_rav1d"
 authors = ["Rav1d Developers", "Prossimo"]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.79"
 description = "Rust port of the dav1d AV1 decoder"
 license = "BSD-2-Clause"
 repository = "https://github.com/memorysafety/rav1d"
-exclude = ["*.c", "*.in", "meson*", "tests/", "doc/", "package/"]
+exclude = ["*.in", "meson*", "tests/", "doc/", "package/"]
 
 [lib]
 path = "lib.rs"
