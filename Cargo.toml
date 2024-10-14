@@ -40,7 +40,7 @@ nasm-rs = { version = "0.3", features = ["parallel"] }
 [features]
 default = [
     # TODO(#7671): Rerun is getting linker errors on Linux currently.
-    "asm_nonlinux",
+    "asm_linux",
     "asm_arm64_dotprod",
     "asm_arm64_i8mm",
     "bitdepth_8",
