@@ -228,8 +228,27 @@ dependencies = [
 ]
 
 [[package]]
-name = "rav1d"
+name = "rav1d-cli"
 version = "1.0.0"
+dependencies = [
+ "cfg-if",
+ "libc",
+ "re_rav1d",
+ "windows-sys",
+]
+
+[[package]]
+name = "raw-cpuid"
+version = "11.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cb9ee317cfe3fbd54b36a511efc1edd42e216903c9cd575e686dd68a2ba90d8d"
+dependencies = [
+ "bitflags",
+]
+
+[[package]]
+name = "re_rav1d"
+version = "0.1.0"
 dependencies = [
  "assert_matches",
  "atomig",
@@ -247,25 +266,6 @@ dependencies = [
  "strum",
  "to_method",
  "zerocopy",
-]
-
-[[package]]
-name = "rav1d-cli"
-version = "1.0.0"
-dependencies = [
- "cfg-if",
- "libc",
- "rav1d",
- "windows-sys",
-]
-
-[[package]]
-name = "raw-cpuid"
-version = "11.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cb9ee317cfe3fbd54b36a511efc1edd42e216903c9cd575e686dd68a2ba90d8d"
-dependencies = [
- "bitflags",
 ]
 
 [[package]]
