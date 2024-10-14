@@ -326,18 +326,20 @@ mod asm {
 }
 
 fn main() {
-    // TODO(#7671): Rerun is getting linker errors on Linux right now with enabled asm features.
+    // // TODO(#7671): Rerun is getting linker errors on Linux right now with enabled asm features.
     cfg_aliases::cfg_aliases! { asm: { any(
         all(feature = "asm_nonlinux", not(target_os = "linux")),
         all(feature = "asm_linux", target_os = "linux")
     ) } };
+    //
+    // if cfg!(any(
+    //     all(feature = "asm_nonlinux", not(target_os = "linux")),
+    //     all(feature = "asm_linux", target_os = "linux"),
+    // )) {
+    //     asm::main();
+    // }
 
-    if cfg!(any(
-        all(feature = "asm_nonlinux", not(target_os = "linux")),
-        all(feature = "asm_linux", target_os = "linux"),
-    )) {
-        asm::main();
-    }
+    asm::main();
 
     // NOTE: we rely on libraries that are only distri  buted for Windows so
     // targeting Windows/MSVC is not supported when cross compiling.
