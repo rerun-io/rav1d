@@ -129,8 +129,11 @@ JMP_TABLE ipred_cfl_left_16bpc,   avx2, h4, h8, h16, h32
 JMP_TABLE ipred_cfl_ac_444_16bpc, avx2, w4, w8, w16, w32
 JMP_TABLE pal_pred_16bpc,         avx2, w4, w8, w16, w32, w64
 
-cextern dr_intra_derivative
-cextern filter_intra_taps
+cextern_pie filter_intra_taps,runtime_filter_intra_taps,0,"EXTERNAL"
+%define filter_intra_taps runtime_filter_intra_taps
+
+cextern_pie dr_intra_derivative,runtime_dr_intra_derivative,0,"EXTERNAL"
+%define dr_intra_derivative runtime_dr_intra_derivative
 
 SECTION .text
 

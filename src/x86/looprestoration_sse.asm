@@ -51,7 +51,8 @@ pd_0xffff:     times 4 dd 0xffff
 pd_0xf00800a4: times 4 dd 0xf00800a4
 pd_0xf00801c7: times 4 dd 0xf00801c7
 
-cextern sgr_x_by_x
+cextern_pie sgr_x_by_x,runtime_sgr_x_by_x,0,"EXTERNAL"
+%define sgr_x_by_x runtime_sgr_x_by_x
 
 SECTION .text
 

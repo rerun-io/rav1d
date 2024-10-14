@@ -43,4 +43,5 @@ struc FGData
     .clip_to_restricted_range:  resd 1
 endstruc
 
-cextern gaussian_sequence
+extern runtime_gaussian_sequence
+%define gaussian_sequence runtime_gaussian_sequence

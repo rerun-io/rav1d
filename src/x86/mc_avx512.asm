@@ -200,10 +200,14 @@ pd_512:             dd 512
 %define pb_64  (wm_sign+8)
 %define pd_2   (pd_0to7+8)
 
-cextern mc_subpel_filters
-%define subpel_filters (mangle(private_prefix %+ _mc_subpel_filters)-8)
-cextern mc_warp_filter
-cextern resize_filter
+cextern_pie mc_warp_filter,runtime_mc_warp_filter,0,"EXTERNAL"
+%define mc_warp_filter runtime_mc_warp_filter
+
+cextern_pie mc_subpel_filters,runtime_mc_subpel_filters,8,"EXTERNAL"
+%define subpel_filters runtime_mc_subpel_filters
+
+cextern_pie resize_filter,runtime_resize_filter,0,"EXTERNAL"
+%define resize_filter runtime_resize_filter
 
 %macro BASE_JMP_TABLE 3-*
     %xdefine %1_%2_table (%%table - %3)

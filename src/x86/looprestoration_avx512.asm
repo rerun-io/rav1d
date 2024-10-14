@@ -53,7 +53,8 @@ pd_m9:         dd -9
 pd_34816:      dd 34816
 pd_8421376:    dd 8421376
 
-cextern sgr_x_by_x
+cextern_pie sgr_x_by_x,runtime_sgr_x_by_x,0,"EXTERNAL"
+%define sgr_x_by_x runtime_sgr_x_by_x
 
 SECTION .text
 

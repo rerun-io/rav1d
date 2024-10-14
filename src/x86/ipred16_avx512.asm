@@ -123,8 +123,12 @@ JMP_TABLE pal_pred_16bpc,         avx512icl, w4, w8, w16, w32, w64
 
 cextern smooth_weights_1d_16bpc
 cextern smooth_weights_2d_16bpc
-cextern dr_intra_derivative
-cextern filter_intra_taps
+
+cextern_pie filter_intra_taps,runtime_filter_intra_taps,0,"EXTERNAL"
+%define filter_intra_taps runtime_filter_intra_taps
+
+cextern_pie dr_intra_derivative,runtime_dr_intra_derivative,0,"EXTERNAL"
+%define dr_intra_derivative runtime_dr_intra_derivative
 
 SECTION .text
 

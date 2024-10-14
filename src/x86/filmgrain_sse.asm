@@ -25,7 +25,30 @@
 
 %include "config.asm"
 %include "ext/x86/x86inc.asm"
-%include "x86/filmgrain_common.asm"
+
+cextern_pie gaussian_sequence,runtime_gaussian_sequence,0,"GLOBAL"
+%define gaussian_sequence runtime_gaussian_sequence
+
+; TODO
+struc FGData
+    .seed:                      resd 1
+    .num_y_points:              resd 1
+    .y_points:                  resb 14 * 2
+    .chroma_scaling_from_luma:  resd 1
+    .num_uv_points:             resd 2
+    .uv_points:                 resb 2 * 10 * 2
+    .scaling_shift:             resd 1
+    .ar_coeff_lag:              resd 1
+    .ar_coeffs_y:               resb 24
+    .ar_coeffs_uv:              resb 2 * 28 ; includes padding
+    .ar_coeff_shift:            resq 1
+    .grain_scale_shift:         resd 1
+    .uv_mult:                   resd 2
+    .uv_luma_mult:              resd 2
+    .uv_offset:                 resd 2
+    .overlap_flag:              resd 1
+    .clip_to_restricted_range:  resd 1
+endstruc
 
 SECTION_RODATA
 

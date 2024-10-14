@@ -868,6 +868,40 @@ BRANCH_INSTR jz, je, jnz, jne, jl, jle, jnl, jnle, jg, jge, jng, jnge, ja, jae, 
     extern %1
 %endmacro
 
+%macro cextern_pie 4
+    %if ARCH_X86_64
+        %if %4 = "GLOBAL"
+            section .data
+            global %2:notype hidden
+            %2 dq 0
+
+            section .text
+
+            %xdefine %1 mangle(private_prefix %+ _ %+ %1)
+            CAT_XDEFINE cglobaled_, %1, 2
+            extern %1
+
+            lea rax, [rel %1 wrt ..got]
+            sub rax, %3
+            mov [%2], rax
+        %else
+            section .text
+
+            extern %2
+
+            %xdefine %1 mangle(private_prefix %+ _ %+ %1)
+            CAT_XDEFINE cglobaled_, %1, 2
+            extern %1
+
+            lea rax, [rel %1 wrt ..got]
+            sub rax, %3
+            mov [%2], rax
+        %endif
+    %else
+        cextern %1
+    %endif
+%endmacro
+
 ; Like cextern, but without the prefix. This should be used for symbols from external libraries.
 %macro cextern_naked 1
     %ifdef PREFIX

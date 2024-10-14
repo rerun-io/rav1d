@@ -91,12 +91,14 @@ pd_0x3ff:        dd 0x3ff
 pd_0x4000:       dd 0x4000
 pq_0x40000000:   dq 0x40000000
 
-cextern mc_subpel_filters
 cextern mc_warp_filter2
-cextern resize_filter
 cextern z_filter_s
 
-%define subpel_filters (mangle(private_prefix %+ _mc_subpel_filters)-8)
+cextern_pie resize_filter,runtime_resize_filter,0,"EXTERNAL"
+%define resize_filter runtime_resize_filter
+
+cextern_pie mc_subpel_filters,runtime_mc_subpel_filters,8,"EXTERNAL"
+%define subpel_filters runtime_mc_subpel_filters
 
 %macro BASE_JMP_TABLE 3-*
     %xdefine %1_%2_table (%%table - %3)
