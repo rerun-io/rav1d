@@ -1,5 +1,6 @@
 #![deny(clippy::all)]
 
+#[cfg(feature = "asm")]
 mod asm {
     use std::collections::HashSet;
     use std::env;
@@ -327,15 +328,12 @@ mod asm {
 
 fn main() {
     // TODO(#7671): Rerun is getting linker errors on Linux right now with enabled asm features.
-    if cfg!(any(
-        all(feature = "asm_nonlinux", not(target_os = "linux")),
-        all(feature = "asm_linux", target_os = "linux"),
-    )) {
-        println!("cargo:rustc-check-cfg=cfg(\"asm\")");
+    #[cfg(all(feature = "asm", not(target_os = "linux")))]
+    {
         asm::main();
     }
 
-    // NOTE: we rely on libraries that are only distri  buted for Windows so
+    // NOTE: we rely on libraries that are only distributed for Windows so
     // targeting Windows/MSVC is not supported when cross compiling.
     #[cfg(all(target_os = "windows", target_env = "msvc"))]
     {

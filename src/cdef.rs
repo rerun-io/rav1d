@@ -23,10 +23,13 @@ use std::ffi::c_int;
 use std::ffi::c_uint;
 use std::ptr;
 
-#[cfg(all(asm, not(any(target_arch = "riscv64", target_arch = "riscv32"))))]
+#[cfg(all(
+    feature = "asm",
+    not(any(target_arch = "riscv64", target_arch = "riscv32"))
+))]
 use crate::include::common::bitdepth::bd_fn;
 
-#[cfg(all(asm, any(target_arch = "x86", target_arch = "x86_64")))]
+#[cfg(all(feature = "asm", any(target_arch = "x86", target_arch = "x86_64")))]
 use crate::include::common::bitdepth::{bpc_fn, BPC};
 
 bitflags! {
@@ -505,7 +508,7 @@ fn cdef_find_dir_rust<BD: BitDepth>(
 }
 
 #[deny(unsafe_op_in_unsafe_fn)]
-#[cfg(all(asm, any(target_arch = "arm", target_arch = "aarch64")))]
+#[cfg(all(feature = "asm", any(target_arch = "arm", target_arch = "aarch64")))]
 mod neon {
     use super::*;
 
@@ -670,7 +673,7 @@ impl Rav1dCdefDSPContext {
         }
     }
 
-    #[cfg(all(asm, any(target_arch = "x86", target_arch = "x86_64")))]
+    #[cfg(all(feature = "asm", any(target_arch = "x86", target_arch = "x86_64")))]
     #[inline(always)]
     const fn init_x86<BD: BitDepth>(mut self, flags: CpuFlags) -> Self {
         if matches!(BD::BPC, BPC::BPC8) {
@@ -726,7 +729,7 @@ impl Rav1dCdefDSPContext {
         self
     }
 
-    #[cfg(all(asm, any(target_arch = "arm", target_arch = "aarch64")))]
+    #[cfg(all(feature = "asm", any(target_arch = "arm", target_arch = "aarch64")))]
     #[inline(always)]
     const fn init_arm<BD: BitDepth>(mut self, flags: CpuFlags) -> Self {
         use self::neon::cdef_filter_neon_erased;
@@ -745,7 +748,7 @@ impl Rav1dCdefDSPContext {
 
     #[inline(always)]
     const fn init<BD: BitDepth>(self, flags: CpuFlags) -> Self {
-        #[cfg(asm)]
+        #[cfg(feature = "asm")]
         {
             #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
             {
