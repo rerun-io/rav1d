@@ -327,8 +327,7 @@ mod asm {
 }
 
 fn main() {
-    // TODO(#7671): Rerun is getting linker errors on Linux right now with enabled asm features.
-    #[cfg(all(feature = "asm", not(target_os = "linux")))]
+    #[cfg(feature = "asm")]
     {
         asm::main();
     }
